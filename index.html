@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>体重管理アプリ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>体重管理アプリ</h1>
+    </header>
+
+    <main>
+        <!-- プロフィール -->
+        <section class="card" id="profile-section">
+            <h2>プロフィール</h2>
+            <div class="profile-grid">
+                <div class="profile-item">
+                    <label for="age">年齢</label>
+                    <input type="number" id="age" min="10" max="100" value="45">
+                </div>
+                <div class="profile-item">
+                    <label for="gender">性別</label>
+                    <select id="gender">
+                        <option value="male" selected>男性</option>
+                        <option value="female">女性</option>
+                    </select>
+                </div>
+                <div class="profile-item">
+                    <label for="height">身長 (cm)</label>
+                    <input type="number" id="height" min="100" max="250" step="0.1" value="170">
+                </div>
+                <div class="profile-item">
+                    <label for="current-weight">現在体重 (kg)</label>
+                    <input type="number" id="current-weight" min="30" max="200" step="0.1" value="69">
+                </div>
+                <div class="profile-item">
+                    <label for="target-weight">目標体重 (kg)</label>
+                    <input type="number" id="target-weight" min="30" max="200" step="0.1" value="66">
+                </div>
+            </div>
+            <button class="btn btn-primary" id="save-profile-btn">プロフィールを保存</button>
+        </section>
+
+        <!-- 今日の記録 -->
+        <section class="card" id="record-section">
+            <h2>今日の記録</h2>
+            <div class="form-group">
+                <label for="record-date">日付</label>
+                <input type="date" id="record-date">
+            </div>
+            <div class="form-group">
+                <label for="record-weight">体重 (kg)</label>
+                <input type="number" id="record-weight" min="30" max="200" step="0.1" placeholder="例: 68.5">
+            </div>
+            <div class="form-group">
+                <label for="record-steps">歩数</label>
+                <input type="number" id="record-steps" min="0" placeholder="例: 8000">
+            </div>
+            <div class="form-group">
+                <label for="record-run">走った距離 (km)</label>
+                <input type="number" id="record-run" min="0" step="0.1" placeholder="例: 3.0">
+            </div>
+            <button class="btn btn-primary" id="save-record-btn">記録を保存</button>
+        </section>
+
+        <!-- サマリー -->
+        <section class="card" id="summary-section">
+            <h2>本日のサマリー</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">基礎代謝 (BMR)</span>
+                    <span class="stat-value" id="bmr-value">— kcal</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">歩行消費</span>
+                    <span class="stat-value" id="steps-kcal">— kcal</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">走行消費</span>
+                    <span class="stat-value" id="run-kcal">— kcal</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">総消費カロリー</span>
+                    <span class="stat-value" id="total-kcal">— kcal</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">推奨摂取カロリー</span>
+                    <span class="stat-value" id="recommended-intake">2,100 kcal</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">目標まで</span>
+                    <span class="stat-value" id="goal-diff">— kg</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 食事提案 -->
+        <section class="card" id="meal-section">
+            <h2>食事提案 <small>（目安 2,100 kcal）</small></h2>
+            <div id="meal-suggestions"></div>
+        </section>
+
+        <!-- 体重推移 -->
+        <section class="card" id="history-section">
+            <h2>体重推移</h2>
+            <div id="chart-container">
+                <canvas id="weight-chart"></canvas>
+            </div>
+            <div id="weight-list"></div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
