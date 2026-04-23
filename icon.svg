@@ -1,20 +1,28 @@
 <svg width="512" height="512" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
 <rect width="680" height="680" rx="140" fill="#c0392b"/>
-<text x="340" y="175" text-anchor="middle" font-family="sans-serif" font-size="130" font-weight="900" fill="white" letter-spacing="-4">62kg</text>
-<rect x="80" y="620" width="520" height="50" rx="25" fill="white" opacity="0.9"/>
-<rect x="110" y="460" width="460" height="170" fill="white" opacity="0.9"/>
-<path d="M110 460 A230 210 0 0 1 570 460 Z" fill="white" opacity="0.9"/>
-<path d="M140 455 A200 180 0 0 1 540 455 Z" fill="#c0392b"/>
-<rect x="140" y="455" width="400" height="25" fill="#c0392b"/>
-<path d="M158 450 A182 162 0 0 1 522 450" fill="none" stroke="white" stroke-width="5"/>
-<line x1="340" y1="272" x2="340" y2="298" stroke="white" stroke-width="7" stroke-linecap="round"/>
-<line x1="402" y1="280" x2="394" y2="305" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
-<line x1="458" y1="303" x2="445" y2="324" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
-<line x1="278" y1="280" x2="286" y2="305" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
-<line x1="222" y1="303" x2="235" y2="324" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
-<line x1="500" y1="346" x2="484" y2="362" stroke="white" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
-<line x1="180" y1="346" x2="196" y2="362" stroke="white" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
-<line x1="340" y1="445" x2="430" y2="330" stroke="#c0392b" stroke-width="8" stroke-linecap="round"/>
-<circle cx="340" cy="445" r="18" fill="white"/>
-<circle cx="340" cy="445" r="9" fill="#c0392b"/>
+<!-- 台座 -->
+<rect x="60" y="590" width="560" height="56" rx="28" fill="white" opacity="0.9"/>
+<!-- 本体四角 -->
+<rect x="90" y="380" width="500" height="220" fill="white" opacity="0.9"/>
+<!-- 本体上部ドーム -->
+<path d="M90 380 A250 230 0 0 1 590 380 Z" fill="white" opacity="0.9"/>
+<!-- 内側くり抜き（赤） -->
+<path d="M125 373 A215 195 0 0 1 555 373 Z" fill="#c0392b"/>
+<rect x="125" y="373" width="430" height="25" fill="#c0392b"/>
+<!-- メーター弧 -->
+<path d="M143 368 A197 175 0 0 1 537 368" fill="none" stroke="white" stroke-width="6"/>
+<!-- 目盛り -->
+<line x1="340" y1="178" x2="340" y2="205" stroke="white" stroke-width="8" stroke-linecap="round"/>
+<line x1="406" y1="187" x2="397" y2="213" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+<line x1="466" y1="213" x2="452" y2="235" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+<line x1="274" y1="187" x2="283" y2="213" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+<line x1="214" y1="213" x2="228" y2="235" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+<line x1="512" y1="258" x2="494" y2="275" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+<line x1="168" y1="258" x2="186" y2="275" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+<!-- 針（右寄り） -->
+<line x1="340" y1="358" x2="445" y2="235" stroke="#c0392b" stroke-width="9" stroke-linecap="round"/>
+<circle cx="340" cy="358" r="20" fill="white"/>
+<circle cx="340" cy="358" r="10" fill="#c0392b"/>
+<!-- 62kg テキスト（体重計下部中央） -->
+<text x="340" y="530" text-anchor="middle" font-family="sans-serif" font-size="110" font-weight="900" fill="#c0392b">62kg</text>
 </svg>
