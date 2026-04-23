@@ -1,373 +1,375 @@
-*, *::before, *::after {
-    box-sizing: border-box;
+* {
     margin: 0;
     padding: 0;
-}
-
-:root {
-    --primary: #4a90e2;
-    --primary-dark: #357abd;
-    --success: #27ae60;
-    --warning: #e67e22;
-    --danger: #e74c3c;
-    --bg: #f0f4f8;
-    --card-bg: #ffffff;
-    --text: #2c3e50;
-    --text-light: #7f8c8d;
-    --border: #dde3ec;
-    --radius: 14px;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    max-width: 480px;
+    margin: 0 auto;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
+    padding-bottom: 80px;
 }
 
-/* ===== Header ===== */
-header {
-    background: linear-gradient(135deg, #4a90e2, #357abd);
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 18px 20px 14px;
+    padding: 18px 20px;
     text-align: center;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(74, 144, 226, 0.4);
 }
 
-header h1 {
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
+.header h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
-/* ===== Layout ===== */
-main {
+.page {
+    display: none;
     padding: 16px;
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-bottom: 32px;
+    animation: fadeIn 0.25s ease;
 }
 
-/* ===== Card ===== */
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- カード ---- */
 .card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
+    background: white;
+    border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.07);
+    margin-bottom: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 }
 
 .card h2 {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.card h2::before {
-    content: '';
-    display: inline-block;
-    width: 4px;
-    height: 18px;
-    background: var(--primary);
-    border-radius: 2px;
-    flex-shrink: 0;
-}
-
-.card h2 small {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--text-light);
-}
-
-/* ===== Profile Grid ===== */
-.profile-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.profile-item {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.profile-item label {
-    font-size: 0.78rem;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 14px;
     font-weight: 700;
-    color: var(--text-light);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
 }
 
-/* ===== Form ===== */
+/* ---- フォーム ---- */
 .form-group {
     margin-bottom: 14px;
 }
 
-.form-group:last-of-type {
-    margin-bottom: 16px;
-}
-
 .form-group label {
     display: block;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-light);
+    font-size: 0.88rem;
+    color: #666;
     margin-bottom: 6px;
-    letter-spacing: 0.02em;
+    font-weight: 600;
 }
 
-input[type="number"],
-input[type="date"],
-select {
+.form-group input,
+.form-group select {
     width: 100%;
-    padding: 13px 14px;
+    padding: 14px 16px;
+    border: 2px solid #e8ecf0;
+    border-radius: 12px;
     font-size: 1rem;
-    font-family: inherit;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    background: #fff;
-    color: var(--text);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #f8fafc;
+    transition: border-color 0.2s;
     -webkit-appearance: none;
     appearance: none;
 }
 
-input:focus,
-select:focus {
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+    border-color: #667eea;
+    background: white;
 }
 
-input::placeholder {
-    color: #bdc3cc;
-}
-
-/* ===== Buttons ===== */
+/* ---- ボタン ---- */
 .btn {
     display: block;
     width: 100%;
-    padding: 15px;
-    font-size: 1rem;
-    font-weight: 800;
-    font-family: inherit;
+    padding: 17px;
     border: none;
-    border-radius: 10px;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-    letter-spacing: 0.05em;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.btn:active {
-    transform: scale(0.97);
+    transition: all 0.15s;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
 }
 
 .btn-primary {
-    background: var(--primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    box-shadow: 0 4px 14px rgba(74, 144, 226, 0.4);
 }
 
-.btn-primary:hover {
-    background: var(--primary-dark);
-    box-shadow: 0 4px 18px rgba(74, 144, 226, 0.5);
+.btn-primary:active { transform: scale(0.97); opacity: 0.9; }
+
+.btn-success {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: #1a5c3a;
 }
 
-/* ===== Stats Grid ===== */
+.btn-success:active { transform: scale(0.97); opacity: 0.9; }
+
+/* ---- ボトムナビ ---- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    border-top: 1px solid #e8ecf0;
+    display: flex;
+    z-index: 200;
+    box-shadow: 0 -4px 14px rgba(0,0,0,0.07);
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 2px 8px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #aaa;
+    font-size: 0.65rem;
+    transition: color 0.2s;
+    gap: 3px;
+}
+
+.nav-item.active { color: #667eea; }
+
+.nav-item .nav-icon {
+    font-size: 1.45rem;
+    line-height: 1;
+}
+
+/* ---- ウェルカムバナー ---- */
+.welcome-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 24px 20px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.welcome-banner .banner-label {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    margin-bottom: 4px;
+}
+
+.weight-display {
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.weight-unit { font-size: 1.3rem; opacity: 0.8; }
+
+.banner-bmi {
+    font-size: 0.88rem;
+    margin-top: 8px;
+    opacity: 0.85;
+}
+
+.banner-remain {
+    font-size: 1rem;
+    margin-top: 6px;
+    font-weight: 700;
+}
+
+/* ---- 統計グリッド ---- */
 .stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    margin-bottom: 12px;
 }
 
-.stat-item {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 12px 10px;
+.stats-grid.single { grid-template-columns: 1fr; }
+
+.stat-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
     text-align: center;
-    border: 1px solid var(--border);
-}
-
-.stat-label {
-    display: block;
-    font-size: 0.72rem;
-    color: var(--text-light);
-    font-weight: 700;
-    margin-bottom: 5px;
-    letter-spacing: 0.02em;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
 }
 
 .stat-value {
-    display: block;
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--primary);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #667eea;
     line-height: 1.2;
 }
 
-.stat-value.success { color: var(--success); }
-.stat-value.warning { color: var(--warning); }
-
-/* ===== Meal Suggestions ===== */
-.meal-card {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 14px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border);
+.stat-unit {
+    font-size: 0.78rem;
+    color: #aaa;
 }
 
-.meal-card:last-child {
-    margin-bottom: 0;
+.stat-label {
+    font-size: 0.78rem;
+    color: #888;
+    margin-top: 4px;
 }
 
-.meal-header {
+/* ---- プログレスバー ---- */
+.progress-container { margin: 4px 0; }
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #e8ecf0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 5px;
+    transition: width 0.6s ease;
+    min-width: 4px;
+}
+
+/* ---- セクションタイトル ---- */
+.section-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 14px 4px 8px;
+}
+
+/* ---- 記録リスト ---- */
+.record-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 13px 0;
+    border-bottom: 1px solid #f0f0f0;
 }
 
-.meal-time {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: var(--text);
+.record-item:last-child { border-bottom: none; }
+
+.record-date {
+    font-size: 0.82rem;
+    color: #aaa;
+    margin-bottom: 2px;
 }
+
+.record-weight {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.record-detail {
+    font-size: 0.8rem;
+    color: #999;
+    text-align: right;
+    line-height: 1.6;
+}
+
+/* ---- グラフ ---- */
+.chart-container {
+    position: relative;
+    height: 240px;
+    margin-top: 8px;
+}
+
+/* ---- 食事提案 ---- */
+.meal-time-block {
+    border-left: 4px solid #667eea;
+    padding-left: 12px;
+    margin-bottom: 18px;
+}
+
+.meal-time-block h3 {
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.meal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 12px;
+    background: #f8fafc;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    font-size: 0.88rem;
+}
+
+.meal-name { color: #444; flex: 1; }
 
 .meal-kcal {
-    font-size: 0.8rem;
+    color: #667eea;
     font-weight: 700;
-    color: var(--primary);
-    background: rgba(74, 144, 226, 0.12);
-    padding: 3px 10px;
-    border-radius: 20px;
+    font-size: 0.82rem;
+    margin-left: 8px;
+    white-space: nowrap;
 }
 
-.meal-items {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.meal-items li {
-    display: flex;
-    flex-direction: column;
-    padding: 7px 0;
-    border-bottom: 1px solid var(--border);
-}
-
-.meal-items li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.food-name {
-    font-weight: 700;
+.total-kcal {
+    text-align: right;
     font-size: 0.88rem;
-    color: var(--text);
+    color: #888;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
 }
 
-.food-note {
-    font-size: 0.76rem;
-    color: var(--text-light);
-    margin-top: 1px;
+.total-kcal strong {
+    color: #43a047;
+    font-size: 1rem;
 }
 
-/* ===== Chart ===== */
-#chart-container {
-    width: 100%;
-    margin-bottom: 16px;
-    min-height: 40px;
-}
-
-#weight-chart {
-    display: block;
-    width: 100%;
-    border-radius: 8px;
-}
-
-/* ===== History Table ===== */
-.history-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.83rem;
-}
-
-.history-table th {
-    background: var(--bg);
-    padding: 9px 6px;
-    text-align: center;
-    font-weight: 700;
-    color: var(--text-light);
-    font-size: 0.75rem;
-    border-bottom: 2px solid var(--border);
-    letter-spacing: 0.02em;
-}
-
-.history-table td {
-    padding: 10px 6px;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-}
-
-.history-table tr:last-child td {
-    border-bottom: none;
-}
-
-.weight-cell {
-    font-weight: 800;
-    color: var(--primary);
-}
-
-.empty-msg {
-    text-align: center;
-    color: var(--text-light);
-    padding: 28px 0;
-    font-size: 0.9rem;
-    line-height: 1.8;
-}
-
-/* ===== Toast ===== */
+/* ---- トースト通知 ---- */
 .toast {
     position: fixed;
-    bottom: 28px;
+    top: 72px;
     left: 50%;
-    transform: translateX(-50%) translateY(16px);
-    background: rgba(44, 62, 80, 0.92);
+    transform: translateX(-50%) translateY(-16px);
+    background: rgba(50,50,50,0.92);
     color: white;
-    padding: 13px 28px;
-    border-radius: 28px;
+    padding: 11px 22px;
+    border-radius: 24px;
     font-size: 0.9rem;
-    font-weight: 700;
-    font-family: inherit;
     opacity: 0;
-    transition: opacity 0.25s, transform 0.25s;
+    transition: all 0.28s;
     z-index: 999;
     white-space: nowrap;
     pointer-events: none;
-}
-
-.toast.toast-error {
-    background: rgba(231, 76, 60, 0.92);
 }
 
 .toast.show {
@@ -375,11 +377,151 @@ input::placeholder {
     transform: translateX(-50%) translateY(0);
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 380px) {
-    main { padding: 12px; gap: 12px; }
-    .card { padding: 16px; }
-    .profile-grid { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: 1fr; }
-    .stat-value { font-size: 0.95rem; }
+/* ---- 空データ ---- */
+.no-data {
+    text-align: center;
+    padding: 36px 20px;
+    color: #bbb;
+    font-size: 0.92rem;
+    line-height: 1.8;
+}
+
+.no-data-icon { font-size: 2.8rem; margin-bottom: 10px; }
+
+/* ---- カロリープレビュー（記録フォーム） ---- */
+.kcal-preview-box {
+    background: #f0f3ff;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 8px 0 4px;
+}
+
+.kcal-preview-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    color: #666;
+    padding: 4px 0;
+}
+
+.kcal-preview-total {
+    border-top: 1px solid #d8deff;
+    margin-top: 6px;
+    padding-top: 8px;
+    color: #667eea;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+/* ---- ホームのカロリー内訳 ---- */
+.kcal-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+/* ---- 目標バナー（食事） ---- */
+.meal-header-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 22px 20px;
+    margin-bottom: 14px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(245,87,108,0.3);
+}
+
+.meal-header-card h2 { color: white; }
+
+.meal-kcal-big {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 6px 0 4px;
+}
+
+.meal-header-note { font-size: 0.85rem; opacity: 0.88; }
+
+/* ---- 食事レベル選択ボタン ---- */
+.meal-level-group {
+    display: flex;
+    gap: 8px;
+}
+
+.meal-level-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 4px;
+    border: 2px solid #e8ecf0;
+    border-radius: 12px;
+    background: #f8fafc;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1.4;
+}
+
+.meal-level-btn span {
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+.meal-level-btn.active {
+    border-color: #667eea;
+    background: #eef0ff;
+    color: #667eea;
+}
+
+.meal-level-btn.active span { color: #667eea; }
+
+/* ---- ラベルのオプション表示 ---- */
+.label-optional {
+    font-size: 0.72rem;
+    color: #aaa;
+    font-weight: 400;
+    margin-left: 6px;
+    background: #f0f0f0;
+    padding: 1px 6px;
+    border-radius: 8px;
+}
+
+/* ---- ランニング換算早見表 ---- */
+.run-table { margin-top: 4px; }
+
+.run-table-header,
+.run-table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 0.88rem;
+}
+
+.run-table-header {
+    font-weight: 700;
+    color: #888;
+    font-size: 0.78rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 6px;
+    margin-bottom: 2px;
+}
+
+.run-table-row { border-bottom: 1px solid #f8f8f8; color: #444; }
+.run-table-row:last-child { border-bottom: none; }
+.run-table-row span:last-child { color: #667eea; font-weight: 700; }
+
+/* ---- 記録リストの食事レベル表示 ---- */
+.record-meal {
+    font-size: 0.78rem;
+    margin-top: 3px;
+    color: #666;
 }
