@@ -12,84 +12,168 @@
     <link rel="manifest" href="manifest.json">
     <title>体重管理アプリ</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Chart.js（グラフ描画ライブラリ） -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
-<!-- ヘッダー -->
 <header class="header">
-    <h1 id="page-title">体重管理</h1>
+    <h1 id="page-title">記録</h1>
 </header>
 
-<!-- トースト通知（保存完了などのメッセージ） -->
 <div class="toast" id="toast"></div>
 
-<!-- ==================== ホーム画面 ==================== -->
-<section class="page" id="page-home">
+<!-- ==================== 記録画面 ==================== -->
+<section class="page" id="page-record">
 
-    <!-- 現在体重・BMI・目標バナー -->
-    <div class="welcome-banner">
-        <div class="banner-label">現在の体重</div>
-        <div class="weight-display" id="home-weight">-- <span class="weight-unit">kg</span></div>
-        <div class="banner-bmi" id="home-bmi">プロフィールを設定してください</div>
-        <div class="banner-remain" id="home-remain"></div>
+    <div class="card">
+        <h2>📝 今日の記録</h2>
+        <div class="form-group">
+            <label>日付</label>
+            <input type="date" id="record-date">
+        </div>
+        <div class="form-group">
+            <label>夜の体重（kg）</label>
+            <input type="number" id="record-weight" placeholder="例：68.5" min="30" max="200" step="0.1">
+        </div>
+        <div class="form-group">
+            <label>歩数</label>
+            <input type="number" id="record-steps" placeholder="例：8000" min="0">
+        </div>
+        <div class="form-group">
+            <label>ランニング距離（km）</label>
+            <input type="number" id="record-distance" placeholder="例：3.0" min="0" step="0.1">
+        </div>
+        <div class="form-group">
+            <label>⌚ 消費カロリー（スマートウォッチの値）<span class="label-optional">任意</span></label>
+            <input type="number" id="record-watch-kcal" placeholder="例：450" min="0">
+        </div>
+        <div class="form-group">
+            <label>🍽️ 今日の食事</label>
+            <div class="meal-level-group">
+                <button type="button" class="meal-level-btn" data-level="good" onclick="selectMealLevel('good')">
+                    🟢 Good<span>〜2100kcal</span>
+                </button>
+                <button type="button" class="meal-level-btn" data-level="fair" onclick="selectMealLevel('fair')">
+                    🟡 Fair<span>2100kcal程度</span>
+                </button>
+                <button type="button" class="meal-level-btn" data-level="poor" onclick="selectMealLevel('poor')">
+                    🔴 Poor<span>2100kcal超え</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="summary-box">
+            <div class="summary-title">📊 今日の総括</div>
+            <div class="summary-row">
+                <span>🧬 基礎代謝</span>
+                <span id="sum-bmr">-- kcal</span>
+            </div>
+            <div class="summary-row">
+                <span>⌚ 活動消費カロリー</span>
+                <span id="sum-watch">-- kcal</span>
+            </div>
+            <div class="summary-row summary-total">
+                <span>🔥 総消費カロリー</span>
+                <span id="sum-total">-- kcal</span>
+            </div>
+            <div class="summary-row">
+                <span>🍽️ 食事目標</span>
+                <span>2,100 kcal</span>
+            </div>
+        </div>
+
+        <button class="btn btn-success" onclick="saveRecordForm()">
+            記録を保存する
+        </button>
     </div>
 
-    <!-- 今日の活動統計 -->
-    <div class="section-title">今日の活動</div>
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-value" id="home-steps">--</div>
-            <div class="stat-unit">歩</div>
-            <div class="stat-label">👣 歩数</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="home-run">--</div>
-            <div class="stat-label">🏃 走った距離</div>
+    <div class="card">
+        <h2>🏃 ランニング換算早見表</h2>
+        <div class="run-table">
+            <div class="run-table-header">
+                <span>距離</span><span>歩数目安</span><span>消費kcal</span>
+            </div>
+            <div class="run-table-row"><span>1 km</span><span>約1,300歩</span><span>60 kcal</span></div>
+            <div class="run-table-row"><span>3 km</span><span>約3,900歩</span><span>180 kcal</span></div>
+            <div class="run-table-row"><span>5 km</span><span>約6,500歩</span><span>300 kcal</span></div>
+            <div class="run-table-row"><span>10 km</span><span>約13,000歩</span><span>600 kcal</span></div>
         </div>
     </div>
-    <div class="stats-grid single">
-        <div class="stat-card">
-            <div class="stat-value" id="home-kcal-total">--</div>
-            <div class="stat-label">🔥 総消費カロリー</div>
-            <div class="kcal-breakdown">
-                <span id="home-kcal-bmr">🧬 基礎代謝: -- kcal</span>
-                <span id="home-kcal-steps">👣 歩数: -- kcal</span>
-                <span id="home-kcal-run">🏃 ランニング: -- kcal</span>
+
+    <div class="card">
+        <h2>📅 最近の記録（直近10件）</h2>
+        <div id="recent-records">
+            <div class="no-data">
+                <div class="no-data-icon">📝</div>
+                まだ記録がありません
             </div>
         </div>
     </div>
-
-    <!-- 目標達成プログレスバー -->
-    <div class="section-title">目標達成度</div>
-    <div class="card" style="padding: 14px 18px;">
-        <div class="progress-container">
-            <div class="progress-label">
-                <span id="progress-left">開始: -- kg</span>
-                <span id="progress-right">目標: -- kg</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 記録ボタン -->
-    <button class="btn btn-primary" onclick="showPage('page-record')">
-        ＋ 今日の記録を入力する
-    </button>
 
 </section>
 
-<!-- ==================== プロフィール画面 ==================== -->
+<!-- ==================== 食事プラン画面 ==================== -->
+<section class="page" id="page-meal">
+
+    <div class="meal-header-card">
+        <h2>🍽️ 1日の目標カロリー</h2>
+        <div class="meal-kcal-big">2,100 kcal</div>
+        <div class="meal-header-note">スーパーでそのまま買って食べられる食事プラン</div>
+    </div>
+
+    <div id="meal-plans"></div>
+
+</section>
+
+<!-- ==================== 履歴画面 ==================== -->
+<section class="page" id="page-history">
+
+    <div class="card">
+        <h2>🔥 総消費カロリーの推移</h2>
+        <div id="kcal-nodata" class="no-data">
+            <div class="no-data-icon">📊</div>
+            記録を入力すると<br>グラフが表示されます
+        </div>
+        <div id="kcal-chart-container" style="display:none">
+            <div class="chart-container">
+                <canvas id="kcalChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>⚖️ 体重の推移</h2>
+        <div id="weight-nodata" class="no-data">
+            <div class="no-data-icon">📊</div>
+            記録を入力すると<br>グラフが表示されます
+        </div>
+        <div id="weight-chart-container" style="display:none">
+            <div class="progress-container" style="margin-bottom:12px">
+                <div class="progress-label">
+                    <span id="history-start">開始: -- kg</span>
+                    <span id="history-target">目標: -- kg</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="history-progress" style="width:0%"></div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="weightChart"></canvas>
+            </div>
+            <div id="weight-stats"></div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ==================== 設定画面 ==================== -->
 <section class="page" id="page-profile">
 
     <div class="card">
         <h2>👤 基本情報</h2>
         <div class="form-group">
             <label>年齢</label>
-            <input type="number" id="profile-age" placeholder="例：35" min="10" max="100">
+            <input type="number" id="profile-age" placeholder="例：45" min="10" max="100">
         </div>
         <div class="form-group">
             <label>性別</label>
@@ -110,11 +194,11 @@
         <h2>⚖️ 体重の目標</h2>
         <div class="form-group">
             <label>現在の体重（kg）</label>
-            <input type="number" id="profile-weight" placeholder="例：75.0" min="30" max="200" step="0.1">
+            <input type="number" id="profile-weight" placeholder="例：69.0" min="30" max="200" step="0.1">
         </div>
         <div class="form-group">
             <label>目標体重（kg）</label>
-            <input type="number" id="profile-target" placeholder="例：68.0" min="30" max="200" step="0.1">
+            <input type="number" id="profile-target" placeholder="例：62.0" min="30" max="200" step="0.1">
         </div>
         <div class="form-group">
             <label>目標期間</label>
@@ -132,111 +216,22 @@
 
 </section>
 
-<!-- ==================== 記録画面 ==================== -->
-<section class="page" id="page-record">
-
-    <div class="card">
-        <h2>📝 今日の記録</h2>
-        <div class="form-group">
-            <label>日付</label>
-            <input type="date" id="record-date">
-        </div>
-        <div class="form-group">
-            <label>体重（kg）</label>
-            <input type="number" id="record-weight" placeholder="例：74.2" min="30" max="200" step="0.1">
-        </div>
-        <div class="form-group">
-            <label>歩数</label>
-            <input type="number" id="record-steps" placeholder="例：8000" min="0">
-        </div>
-        <div class="form-group">
-            <label>走った距離（km）</label>
-            <input type="number" id="record-distance" placeholder="例：3.0" min="0" step="0.1">
-        </div>
-        <div class="kcal-preview-box">
-            <div class="kcal-preview-row">
-                <span>👣 歩数による消費</span>
-                <span id="kcal-steps">0 kcal</span>
-            </div>
-            <div class="kcal-preview-row">
-                <span>🏃 ランニングによる消費</span>
-                <span id="kcal-run">0 kcal</span>
-            </div>
-            <div class="kcal-preview-row kcal-preview-total">
-                <span>🔥 合計消費カロリー</span>
-                <span id="kcal-total">0 kcal</span>
-            </div>
-        </div>
-        <button class="btn btn-success" style="margin-top:6px" onclick="saveRecordForm()">
-            記録を保存する
-        </button>
-    </div>
-
-    <div class="card">
-        <h2>📅 最近の記録（直近10件）</h2>
-        <div id="recent-records">
-            <div class="no-data">
-                <div class="no-data-icon">📝</div>
-                まだ記録がありません
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<!-- ==================== グラフ画面 ==================== -->
-<section class="page" id="page-graph">
-
-    <div class="card">
-        <h2>📈 体重の推移</h2>
-        <div id="graph-nodata" class="no-data">
-            <div class="no-data-icon">📊</div>
-            記録を入力すると<br>グラフが表示されます
-        </div>
-        <div id="graph-container" style="display:none">
-            <div class="chart-container">
-                <canvas id="weightChart"></canvas>
-            </div>
-        </div>
-        <div id="graph-stats"></div>
-    </div>
-
-</section>
-
-<!-- ==================== 食事プラン画面 ==================== -->
-<section class="page" id="page-meal">
-
-    <div class="meal-header-card">
-        <h2>🍽️ 1日の目標カロリー</h2>
-        <div class="meal-kcal-big">2,100 kcal</div>
-        <div class="meal-header-note">スーパーでそのまま買って食べられる食事プラン</div>
-    </div>
-
-    <div id="meal-plans"></div>
-
-</section>
-
-<!-- ==================== ボトムナビゲーション ==================== -->
 <nav class="bottom-nav">
-    <button class="nav-item active" data-page="page-home">
-        <span class="nav-icon">🏠</span>
-        ホーム
-    </button>
-    <button class="nav-item" data-page="page-profile">
-        <span class="nav-icon">👤</span>
-        設定
-    </button>
-    <button class="nav-item" data-page="page-record">
+    <button class="nav-item active" data-page="page-record">
         <span class="nav-icon">✏️</span>
         記録
-    </button>
-    <button class="nav-item" data-page="page-graph">
-        <span class="nav-icon">📈</span>
-        グラフ
     </button>
     <button class="nav-item" data-page="page-meal">
         <span class="nav-icon">🍱</span>
         食事
+    </button>
+    <button class="nav-item" data-page="page-history">
+        <span class="nav-icon">📈</span>
+        履歴
+    </button>
+    <button class="nav-item" data-page="page-profile">
+        <span class="nav-icon">⚙️</span>
+        設定
     </button>
 </nav>
 

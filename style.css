@@ -446,12 +446,43 @@ body {
 
 .meal-header-note { font-size: 0.85rem; opacity: 0.88; }
 
+/* ---- 今日の総括ボックス ---- */
+.summary-box {
+    background: #fff5f5;
+    border: 1.5px solid #f5c6c6;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: 12px 0;
+}
+.summary-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #c0392b;
+    margin-bottom: 10px;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    color: #666;
+    padding: 4px 0;
+    border-bottom: 1px solid #fde8e8;
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-total {
+    color: #c0392b;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding-top: 8px;
+    margin-top: 4px;
+}
+
 /* ---- 食事レベル選択ボタン ---- */
 .meal-level-group {
     display: flex;
     gap: 8px;
 }
-
 .meal-level-btn {
     flex: 1;
     display: flex;
@@ -467,21 +498,18 @@ body {
     transition: all 0.15s;
     line-height: 1.4;
 }
-
 .meal-level-btn span {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 400;
     color: #aaa;
     margin-top: 2px;
 }
-
 .meal-level-btn.active {
-    border-color: #667eea;
-    background: #eef0ff;
-    color: #667eea;
+    border-color: #c0392b;
+    background: #fff5f5;
+    color: #c0392b;
 }
-
-.meal-level-btn.active span { color: #667eea; }
+.meal-level-btn.active span { color: #c0392b; }
 
 /* ---- ラベルのオプション表示 ---- */
 .label-optional {
@@ -496,7 +524,6 @@ body {
 
 /* ---- ランニング換算早見表 ---- */
 .run-table { margin-top: 4px; }
-
 .run-table-header,
 .run-table-row {
     display: grid;
@@ -505,7 +532,6 @@ body {
     padding: 8px 4px;
     font-size: 0.88rem;
 }
-
 .run-table-header {
     font-weight: 700;
     color: #888;
@@ -514,7 +540,6 @@ body {
     padding-bottom: 6px;
     margin-bottom: 2px;
 }
-
 .run-table-row { border-bottom: 1px solid #f8f8f8; color: #444; }
 .run-table-row:last-child { border-bottom: none; }
 .run-table-row span:last-child { color: #667eea; font-weight: 700; }
