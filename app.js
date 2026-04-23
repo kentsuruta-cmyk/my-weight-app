@@ -101,7 +101,8 @@ function renderRecordForm() {
         document.getElementById('record-watch-kcal').value = '';
         selectMealLevel(null, true);
     }
-    updateSummary();
+    // 少し遅延させてDOMが確実に更新された後にsummaryを計算
+    setTimeout(updateSummary, 50);
     renderRecentRecords();
 }
 
