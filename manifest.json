@@ -1,0 +1,17 @@
+{
+  "name": "体重管理",
+  "short_name": "体重管理",
+  "description": "毎日の体重・活動を記録するアプリ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#c0392b",
+  "theme_color": "#c0392b",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

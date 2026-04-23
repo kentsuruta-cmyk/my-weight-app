@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-title" content="体重管理">
+    <meta name="theme-color" content="#c0392b">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="manifest" href="manifest.json">
     <title>体重管理アプリ</title>
     <link rel="stylesheet" href="style.css">
     <!-- Chart.js（グラフ描画ライブラリ） -->
@@ -53,8 +57,6 @@
                 <span id="home-kcal-bmr">🧬 基礎代謝: -- kcal</span>
                 <span id="home-kcal-steps">👣 歩数: -- kcal</span>
                 <span id="home-kcal-run">🏃 ランニング: -- kcal</span>
-                <span id="home-kcal-watch" style="display:none"></span>
-                <span id="home-meal-level" style="display:none"></span>
             </div>
         </div>
     </div>
@@ -151,24 +153,6 @@
             <label>走った距離（km）</label>
             <input type="number" id="record-distance" placeholder="例：3.0" min="0" step="0.1">
         </div>
-        <div class="form-group">
-            <label>⌚ 総消費カロリー（スマートウォッチの値）<span class="label-optional">任意</span></label>
-            <input type="number" id="record-watch-kcal" placeholder="例：2450" min="0">
-        </div>
-        <div class="form-group">
-            <label>🍽️ 今日の食事</label>
-            <div class="meal-level-group">
-                <button type="button" class="meal-level-btn" data-level="normal" onclick="selectMealLevel('normal')">
-                    🟢 普通<span>日常の食事</span>
-                </button>
-                <button type="button" class="meal-level-btn" data-level="more" onclick="selectMealLevel('more')">
-                    🟡 やや多め<span>外食・ランチ奮発</span>
-                </button>
-                <button type="button" class="meal-level-btn" data-level="heavy" onclick="selectMealLevel('heavy')">
-                    🔴 多め<span>飲み会・宴会</span>
-                </button>
-            </div>
-        </div>
         <div class="kcal-preview-box">
             <div class="kcal-preview-row">
                 <span>👣 歩数による消費</span>
@@ -186,19 +170,6 @@
         <button class="btn btn-success" style="margin-top:6px" onclick="saveRecordForm()">
             記録を保存する
         </button>
-    </div>
-
-    <div class="card">
-        <h2>🏃 ランニング換算早見表</h2>
-        <div class="run-table">
-            <div class="run-table-header">
-                <span>距離</span><span>歩数目安</span><span>消費kcal</span>
-            </div>
-            <div class="run-table-row"><span>1 km</span><span>約1,300歩</span><span>60 kcal</span></div>
-            <div class="run-table-row"><span>3 km</span><span>約3,900歩</span><span>180 kcal</span></div>
-            <div class="run-table-row"><span>5 km</span><span>約6,500歩</span><span>300 kcal</span></div>
-            <div class="run-table-row"><span>10 km</span><span>約13,000歩</span><span>600 kcal</span></div>
-        </div>
     </div>
 
     <div class="card">
